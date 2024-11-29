@@ -1,7 +1,5 @@
 <div align="center">
 
-# Dragon Quest Style RPG
-
 ![Header](static/assets/header.svg)
 
 </div>
