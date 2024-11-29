@@ -55,6 +55,21 @@ class Game {
                         document.getElementById('status-window').classList.toggle('hidden');
                         break;
                 }
+            } else if (this.gameState === 'battle') {
+                switch(e.key) {
+                    case 'ArrowUp':
+                        this.battle.selectPreviousCommand();
+                        break;
+                    case 'ArrowDown':
+                        this.battle.selectNextCommand();
+                        break;
+                    case 'Enter':
+                        const result = this.battle.executeCommand();
+                        if (result === 'win' || result === 'lose' || result === 'escape') {
+                            this.gameState = 'exploring';
+                        }
+                        break;
+                }
             }
         });
 
@@ -82,6 +97,15 @@ class Game {
 
         document.getElementById('btn-menu')?.addEventListener('click', () => {
             document.getElementById('status-window').classList.toggle('hidden');
+        });
+
+        document.getElementById('btn-action')?.addEventListener('click', () => {
+            if (this.gameState === 'battle') {
+                const result = this.battle.executeCommand();
+                if (result === 'win' || result === 'lose' || result === 'escape') {
+                    this.gameState = 'exploring';
+                }
+            }
         });
 
         // タッチイベントの無効化（スクロール防止）
