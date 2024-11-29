@@ -41,7 +41,7 @@ body {
     font-family: 'Courier New', monospace;
 }
 
-#mobile-controls {
+#game-controls {
     position: fixed;
     bottom: 20px;
     left: 0;
@@ -49,52 +49,79 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 0 20px;
+    pointer-events: none;
 }
 
 .d-pad {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
+    pointer-events: auto;
 }
 
 .d-pad button {
     position: absolute;
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.3);
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.4);
     border: 2px solid #fff;
     color: #fff;
     font-size: 24px;
     touch-action: manipulation;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-#btn-up { top: 0; left: 50px; }
-#btn-down { bottom: 0; left: 50px; }
-#btn-left { left: 0; top: 50px; }
-#btn-right { right: 0; top: 50px; }
+.d-pad button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.d-pad button:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+#btn-up { top: 0; left: 60px; }
+#btn-down { bottom: 0; left: 60px; }
+#btn-left { left: 0; top: 60px; }
+#btn-right { right: 0; top: 60px; }
 
 .battle-controls {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    pointer-events: auto;
 }
 
 .battle-controls button {
-    width: 80px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.3);
+    width: 100px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.4);
     border: 2px solid #fff;
     color: #fff;
-    font-size: 16px;
+    font-size: 18px;
     touch-action: manipulation;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.battle-controls button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.battle-controls button:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.6);
 }
 
 #btn-action {
-    background: rgba(255, 255, 0, 0.3);
+    background: rgba(255, 255, 0, 0.4);
 }
 
-@media (min-width: 801px) {
-    #mobile-controls {
-        display: none;
-    }
+#btn-action:hover {
+    background: rgba(255, 255, 0, 0.5);
+}
+
+#btn-action:active {
+    background: rgba(255, 255, 0, 0.6);
 }

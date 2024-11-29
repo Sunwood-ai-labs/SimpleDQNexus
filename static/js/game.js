@@ -73,7 +73,7 @@ class Game {
             }
         });
 
-        // モバイルコントロール
+        // ゲームコントロール
         const buttons = {
             'btn-up': [0, -1],
             'btn-down': [0, 1],
@@ -84,14 +84,25 @@ class Game {
         Object.entries(buttons).forEach(([id, [dx, dy]]) => {
             const button = document.getElementById(id);
             if (button) {
-                ['touchstart', 'mousedown'].forEach(eventType => {
-                    button.addEventListener(eventType, (e) => {
-                        e.preventDefault();
-                        if (this.gameState === 'exploring') {
-                            this.player.move(dx, dy);
-                        }
-                    });
-                });
+                const movePlayer = (e) => {
+                    e.preventDefault();
+                    if (this.gameState === 'exploring') {
+                        this.player.move(dx, dy);
+                        button.style.transform = 'scale(0.95)';
+                        button.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+                    }
+                };
+
+                const resetButton = () => {
+                    button.style.transform = '';
+                    button.style.backgroundColor = '';
+                };
+
+                button.addEventListener('touchstart', movePlayer);
+                button.addEventListener('mousedown', movePlayer);
+                button.addEventListener('touchend', resetButton);
+                button.addEventListener('mouseup', resetButton);
+                button.addEventListener('mouseleave', resetButton);
             }
         });
 
