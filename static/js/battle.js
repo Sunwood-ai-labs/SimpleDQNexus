@@ -5,6 +5,7 @@ class Battle {
         this.selectedCommand = 0; // 0: たたかう, 1: にげる
         this.commands = ['たたかう', 'にげる'];
         this.playerTurn = true;
+        this.processingTurn = false; // ターン処理中フラグ
     }
 
     loadEnemySprite() {
@@ -21,46 +22,69 @@ class Battle {
         };
         this.playerTurn = true;
         this.selectedCommand = 0;
+        this.processingTurn = false;
     }
 
     selectNextCommand() {
-        this.selectedCommand = (this.selectedCommand + 1) % this.commands.length;
+        if (!this.processingTurn) {
+            this.selectedCommand = (this.selectedCommand + 1) % this.commands.length;
+        }
     }
 
     selectPreviousCommand() {
-        this.selectedCommand = (this.selectedCommand - 1 + this.commands.length) % this.commands.length;
+        if (!this.processingTurn) {
+            this.selectedCommand = (this.selectedCommand - 1 + this.commands.length) % this.commands.length;
+        }
     }
 
     executeCommand() {
-        if (!this.playerTurn) return;
+        if (!this.playerTurn || this.processingTurn) return null;
 
         if (this.selectedCommand === 0) { // たたかう
+            this.processingTurn = true;
             const damage = Math.floor(Math.random() * 10) + 5;
             this.enemy.hp = Math.max(0, this.enemy.hp - damage);
             this.playerTurn = false;
             
+            // 敵のHP確認
             if (this.enemy.hp <= 0) {
+                this.processingTurn = false;
                 return 'win';
             }
             
             // 敵の攻撃
             setTimeout(() => {
-                const enemyDamage = Math.floor(Math.random() * this.enemy.attack);
-                window.gameInstance.player.stats.hp = Math.max(0, window.gameInstance.player.stats.hp - enemyDamage);
-                window.gameInstance.player.updateStats();
-                this.playerTurn = true;
-                
-                if (game.player.stats.hp <= 0) {
-                    return 'lose';
+                try {
+                    const enemyDamage = Math.floor(Math.random() * this.enemy.attack);
+                    window.gameInstance.player.stats.hp = Math.max(0, window.gameInstance.player.stats.hp - enemyDamage);
+                    window.gameInstance.player.updateStats();
+                    
+                    // プレイヤーのHP確認
+                    if (window.gameInstance.player.stats.hp <= 0) {
+                        this.processingTurn = false;
+                        return 'lose';
+                    }
+
+                    // ターン状態の更新
+                    this.playerTurn = true;
+                    this.processingTurn = false;
+                } catch (error) {
+                    console.error('Enemy turn processing error:', error);
+                    this.playerTurn = true;
+                    this.processingTurn = false;
                 }
             }, 1000);
         } else if (this.selectedCommand === 1) { // にげる
+            this.processingTurn = true;
             if (Math.random() < 0.5) {
+                this.processingTurn = false;
                 return 'escape';
             }
             this.playerTurn = false;
+            
             setTimeout(() => {
                 this.playerTurn = true;
+                this.processingTurn = false;
             }, 1000);
         }
         return null;
@@ -91,7 +115,7 @@ class Battle {
         // コマンドの描画
         ctx.font = '24px monospace';
         this.commands.forEach((command, index) => {
-            if (index === this.selectedCommand) {
+            if (index === this.selectedCommand && !this.processingTurn) {
                 ctx.fillStyle = '#ffff00';
                 ctx.fillText('▶', 70, 450 + index * 50);
             }
@@ -100,7 +124,7 @@ class Battle {
         });
 
         // ターン表示
-        if (!this.playerTurn) {
+        if (!this.playerTurn || this.processingTurn) {
             ctx.fillStyle = '#fff';
             ctx.fillText('敵のターン', 350, 350);
         }
