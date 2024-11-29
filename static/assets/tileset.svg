@@ -1,0 +1,6 @@
+<svg width="64" height="32" xmlns="http://www.w3.org/2000/svg">
+    <!-- 草原タイル -->
+    <rect x="0" y="0" width="32" height="32" fill="#90EE90"/>
+    <!-- 砂地タイル -->
+    <rect x="32" y="0" width="32" height="32" fill="#F4A460"/>
+</svg>

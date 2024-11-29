@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ドラゴンクエスト風RPG</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="status-window" class="hidden">
+            <h2>ステータス</h2>
+            <p>HP: <span id="hp">100</span>/100</p>
+            <p>MP: <span id="mp">50</span>/50</p>
+            <p>レベル: <span id="level">1</span></p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/player.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/battle.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>
