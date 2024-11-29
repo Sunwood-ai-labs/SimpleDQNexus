@@ -54,19 +54,19 @@ body {
 
 .d-pad {
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: 240px;
+    height: 240px;
     pointer-events: auto;
 }
 
 .d-pad button {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     background: rgba(255, 255, 255, 0.4);
     border: 2px solid #fff;
     color: #fff;
-    font-size: 24px;
+    font-size: 32px;
     touch-action: manipulation;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
@@ -81,10 +81,10 @@ body {
     background: rgba(255, 255, 255, 0.6);
 }
 
-#btn-up { top: 0; left: 60px; }
-#btn-down { bottom: 0; left: 60px; }
-#btn-left { left: 0; top: 60px; }
-#btn-right { right: 0; top: 60px; }
+#btn-up { top: 0; left: 80px; }
+#btn-down { bottom: 0; left: 80px; }
+#btn-left { left: 0; top: 80px; }
+#btn-right { right: 0; top: 80px; }
 
 .battle-controls {
     display: flex;
@@ -94,12 +94,12 @@ body {
 }
 
 .battle-controls button {
-    width: 100px;
-    height: 50px;
+    width: 140px;
+    height: 70px;
     background: rgba(255, 255, 255, 0.4);
     border: 2px solid #fff;
     color: #fff;
-    font-size: 18px;
+    font-size: 24px;
     touch-action: manipulation;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
@@ -124,4 +124,9 @@ body {
 
 #btn-action:active {
     background: rgba(255, 255, 0, 0.6);
+}
+@media (min-width: 1024px) {
+    #game-controls {
+        transform: scale(1.2);
+    }
 }

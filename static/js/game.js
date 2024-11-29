@@ -159,5 +159,5 @@ class Game {
 
 // ゲーム開始
 window.onload = () => {
-    new Game();
+    window.gameInstance = new Game();
 };

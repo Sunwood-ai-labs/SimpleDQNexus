@@ -46,8 +46,8 @@ class Battle {
             // 敵の攻撃
             setTimeout(() => {
                 const enemyDamage = Math.floor(Math.random() * this.enemy.attack);
-                game.player.stats.hp = Math.max(0, game.player.stats.hp - enemyDamage);
-                game.player.updateStats();
+                window.gameInstance.player.stats.hp = Math.max(0, window.gameInstance.player.stats.hp - enemyDamage);
+                window.gameInstance.player.updateStats();
                 this.playerTurn = true;
                 
                 if (game.player.stats.hp <= 0) {
