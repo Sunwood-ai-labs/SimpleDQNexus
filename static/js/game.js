@@ -7,6 +7,11 @@ class Game {
         this.map = new Map();
         this.battle = new Battle();
         this.gameState = 'exploring'; // exploring, battle
+        this.enemySymbols = [
+            new EnemySymbol(200, 200),
+            new EnemySymbol(600, 400),
+            new EnemySymbol(300, 500)
+        ];
         
         this.setupEventListeners();
         this.gameLoop();
@@ -129,11 +134,14 @@ class Game {
 
     update() {
         if (this.gameState === 'exploring') {
-            // ランダムエンカウント判定
-            if (Math.random() < 0.005) {
-                this.gameState = 'battle';
-                this.battle.start();
-            }
+            // 敵シンボルの更新と衝突判定
+            this.enemySymbols.forEach(enemy => {
+                enemy.update();
+                if (enemy.checkCollision(this.player)) {
+                    this.gameState = 'battle';
+                    this.battle.start();
+                }
+            });
         } else if (this.gameState === 'battle') {
             this.battle.update();
         }
@@ -144,6 +152,7 @@ class Game {
         
         if (this.gameState === 'exploring') {
             this.map.render(this.ctx);
+            this.enemySymbols.forEach(enemy => enemy.render(this.ctx));
             this.player.render(this.ctx);
         } else if (this.gameState === 'battle') {
             this.battle.render(this.ctx);
