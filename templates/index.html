@@ -6,12 +6,21 @@
 </head>
 <body>
     <div id="game-container">
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <canvas id="gameCanvas"></canvas>
         <div id="status-window" class="hidden">
             <h2>ステータス</h2>
             <p>HP: <span id="hp">100</span>/100</p>
             <p>MP: <span id="mp">50</span>/50</p>
             <p>レベル: <span id="level">1</span></p>
+        </div>
+        <div id="mobile-controls">
+            <div class="d-pad">
+                <button id="btn-up">↑</button>
+                <button id="btn-left">←</button>
+                <button id="btn-right">→</button>
+                <button id="btn-down">↓</button>
+            </div>
+            <button id="btn-menu">メニュー</button>
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/map.js') }}"></script>

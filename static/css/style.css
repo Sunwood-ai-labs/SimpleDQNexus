@@ -6,15 +6,24 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #000;
+    touch-action: none;
 }
 
 #game-container {
     position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 #gameCanvas {
     border: 4px solid #fff;
     image-rendering: pixelated;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
 }
 
 .hidden {
@@ -30,4 +39,53 @@ body {
     padding: 10px;
     border: 2px solid #fff;
     font-family: 'Courier New', monospace;
+}
+
+#mobile-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.d-pad {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.d-pad button {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid #fff;
+    color: #fff;
+    font-size: 24px;
+    touch-action: manipulation;
+}
+
+#btn-up { top: 0; left: 50px; }
+#btn-down { bottom: 0; left: 50px; }
+#btn-left { left: 0; top: 50px; }
+#btn-right { right: 0; top: 50px; }
+
+#btn-menu {
+    width: 80px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid #fff;
+    color: #fff;
+    font-size: 16px;
+    align-self: flex-end;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 801px) {
+    #mobile-controls {
+        display: none;
+    }
 }
