@@ -2,9 +2,16 @@
 <svg width="800" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
     <!-- Background -->
     <defs>
-        <linearGradient id="headerGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id="headerGradient" x1="0%" y1="0%" x2="0%" y2="100%" gradientTransform="rotate(0)">
             <stop offset="0%" style="stop-color:#2b0a3d;stop-opacity:1" />
             <stop offset="100%" style="stop-color:#4b1d63;stop-opacity:1" />
+            <animateTransform
+                attributeName="gradientTransform"
+                type="rotate"
+                from="0 0.5 0.5"
+                to="360 0.5 0.5"
+                dur="10s"
+                repeatCount="indefinite" />
         </linearGradient>
         <!-- Pixel Pattern -->
         <pattern id="pixelPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -38,7 +45,7 @@
     </g>
 
     <!-- Main Title (English) -->
-    <text x="400" y="100" font-family="Arial Black, sans-serif" font-size="48" text-anchor="middle" fill="#ffffff" stroke="#000000" stroke-width="2">
+    <text x="400" y="110" font-family="Arial Black, sans-serif" font-size="48" text-anchor="middle" fill="#ffffff" stroke="#000000" stroke-width="2">
         Dragon Quest Style RPG
     </text>
 </svg>
