@@ -175,6 +175,8 @@ class Game {
 }
 
 // ゲーム開始
+let gameInstance = null;
 window.onload = () => {
-    window.gameInstance = new Game();
+    gameInstance = new Game();
+    window.gameInstance = gameInstance;
 };

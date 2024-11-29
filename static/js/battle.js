@@ -58,8 +58,10 @@ class Battle {
                     }
 
                     const enemyDamage = Math.floor(Math.random() * this.enemy.attack);
-                    window.gameInstance.player.stats.hp = Math.max(0, window.gameInstance.player.stats.hp - enemyDamage);
-                    window.gameInstance.player.updateStats();
+                    if (window.gameInstance && window.gameInstance.player) {
+                        window.gameInstance.player.stats.hp = Math.max(0, window.gameInstance.player.stats.hp - enemyDamage);
+                        window.gameInstance.player.updateStats();
+                    }
                     
                     // プレイヤーのHP確認
                     if (window.gameInstance.player.stats.hp <= 0) {
