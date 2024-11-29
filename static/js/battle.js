@@ -6,6 +6,7 @@ class Battle {
         this.commands = ['たたかう', 'にげる'];
         this.playerTurn = true;
         this.processingTurn = false; // ターン処理中フラグ
+        this.battleResult = null; // 'win', 'lose', 'escape'のいずれか
     }
 
     loadEnemySprite() {
@@ -38,7 +39,7 @@ class Battle {
     }
 
     executeCommand() {
-        if (!this.playerTurn || this.processingTurn) return null;
+        if (!this.playerTurn || this.processingTurn) return;
 
         if (this.selectedCommand === 0) { // たたかう
             this.processingTurn = true;
@@ -46,15 +47,16 @@ class Battle {
             this.enemy.hp = Math.max(0, this.enemy.hp - damage);
             this.playerTurn = false;
             
-            // 敵のHP確認
-            if (this.enemy.hp <= 0) {
-                this.processingTurn = false;
-                return 'win';
-            }
-            
             // 敵の攻撃
             setTimeout(() => {
                 try {
+                    // 敵のHP確認
+                    if (this.enemy.hp <= 0) {
+                        this.processingTurn = false;
+                        this.battleResult = 'win';
+                        return;
+                    }
+
                     const enemyDamage = Math.floor(Math.random() * this.enemy.attack);
                     window.gameInstance.player.stats.hp = Math.max(0, window.gameInstance.player.stats.hp - enemyDamage);
                     window.gameInstance.player.updateStats();
@@ -62,7 +64,8 @@ class Battle {
                     // プレイヤーのHP確認
                     if (window.gameInstance.player.stats.hp <= 0) {
                         this.processingTurn = false;
-                        return 'lose';
+                        this.battleResult = 'lose';
+                        return;
                     }
 
                     // ターン状態の更新
@@ -78,7 +81,8 @@ class Battle {
             this.processingTurn = true;
             if (Math.random() < 0.5) {
                 this.processingTurn = false;
-                return 'escape';
+                this.battleResult = 'escape';
+                return;
             }
             this.playerTurn = false;
             
@@ -87,7 +91,6 @@ class Battle {
                 this.processingTurn = false;
             }, 1000);
         }
-        return null;
     }
 
     update() {

@@ -69,10 +69,7 @@ class Game {
                         this.battle.selectNextCommand();
                         break;
                     case 'Enter':
-                        const result = this.battle.executeCommand();
-                        if (result === 'win' || result === 'lose' || result === 'escape') {
-                            this.gameState = 'exploring';
-                        }
+                        this.battle.executeCommand();
                         break;
                 }
             }
@@ -117,10 +114,7 @@ class Game {
 
         document.getElementById('btn-action')?.addEventListener('click', () => {
             if (this.gameState === 'battle') {
-                const result = this.battle.executeCommand();
-                if (result === 'win' || result === 'lose' || result === 'escape') {
-                    this.gameState = 'exploring';
-                }
+                this.battle.executeCommand();
             }
         });
 
@@ -144,6 +138,20 @@ class Game {
             });
         } else if (this.gameState === 'battle') {
             this.battle.update();
+            // 戦闘結果の確認
+            if (this.battle.battleResult) {
+                if (this.battle.battleResult === 'win') {
+                    // 現在の敵シンボルを削除
+                    const currentEnemyIndex = this.enemySymbols.findIndex(enemy => 
+                        enemy.checkCollision(this.player)
+                    );
+                    if (currentEnemyIndex !== -1) {
+                        this.enemySymbols.splice(currentEnemyIndex, 1);
+                    }
+                }
+                this.gameState = 'exploring';
+                this.battle.battleResult = null;
+            }
         }
     }
 
